@@ -55,7 +55,7 @@ S_Object.position.set(0, 0, 0);
 let seagull; // Declare a variable to access it later
 
 const loader = new GLTFLoader();
-loader.load('models/seagull.gltf', function (gltf) {
+loader.load('/seagull.gltf', function (gltf) {
   gltf.scene.traverse((child) => {
     if (child.isMesh) {
       child.material = new THREE.MeshBasicMaterial({
