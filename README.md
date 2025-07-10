@@ -1,2 +1,2 @@
 # Seagull
-Repo to the official Seagull Website
+Repo to the official Comapny Website
