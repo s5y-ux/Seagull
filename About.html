@@ -1,19 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>About Seagull Technologies LLC</title>
-    </head>
-    
-    <body>
-        <div id="splash-screen" class="splash-screen">
+    <title>About Seagull Technologies LLC</title>
+</head>
+
+<body>
+    <div id="splash-screen" class="splash-screen">
         <div class="typewriter">
             <h1>Welcome to our company,</h1>
             <p>Allow us to introduce ourselves...</p>
         </div>
+    </div>
+
+    <!-- Fullscreen Background Video -->
+        <div class="fullscreen-video" id="video-wrapper">
+            <div id="player"></div>
+
+            <!-- Click overlay -->
+            <div id="audio-overlay">
+                <div class="overlay-content">
+                    <p>Click to enable audio</p>
+                </div>
+            </div>
         </div>
-        </body>
+
+        <!-- Load the YouTube IFrame API -->
+        <script src="https://www.youtube.com/iframe_api"></script>
+
+
+    <!-- Script to hide splash screen -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const splash = document.getElementById("splash-screen");
+
+            // Hide after 2.5 seconds (with fade)
+            setTimeout(() => {
+                splash.classList.add("hidden");
+                // remove from flow after CSS fade completes
+                setTimeout(() => { splash.style.display = "none"; }, 600);
+            }, 2500);
+
+            // Hide immediately on click (fade then remove)
+            splash.addEventListener("click", () => {
+                splash.classList.add("hidden");
+                setTimeout(() => { splash.style.display = "none"; }, 600);
+            });
+        });
+    </script>
+<script>
+let player;
+
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        videoId: 'WwtI1fUkrY4',
+        playerVars: {
+            autoplay: 1,
+            controls: 0,
+            showinfo: 0,
+            modestbranding: 1,
+            mute: 1,        // required for autoplay
+            loop: 1,
+            playlist: 'WwtI1fUkrY4',
+            iv_load_policy: 3,
+            rel: 0
+        },
+        events: {
+            onReady: onPlayerReady
+        }
+    });
+}
+
+function onPlayerReady() {
+    player.playVideo();
+}
+
+/* User click → unmute + highest quality */
+document.getElementById("audio-overlay").addEventListener("click", () => {
+    player.unMute();
+    document.getElementById("audio-overlay").classList.add("hidden");
+});
+
+</script>
+
+</body>
 </html>
