@@ -160,6 +160,7 @@ const splashScreen = document.getElementById("splash-screen");
 
 splashScreen.addEventListener("click", function () {
   splashScreen.style.opacity = "0";
+  console.log("Splash screen clicked");
   setTimeout(function () {
     splashScreen.style.display = "none";
   }, 600);

@@ -39,18 +39,5 @@
       </main>
     <div id="app"></div>
     <script type="module" src="/main.js"></script>
-    <script>
-  // Ensure splash screen always disappears after 3 seconds
-  document.addEventListener("DOMContentLoaded", () => {
-    const splash = document.getElementById("splash-screen");
-    if (!splash) return;
-
-    setTimeout(() => {
-      splash.style.transition = "opacity 0.5s ease";
-      splash.style.opacity = 0;
-      setTimeout(() => splash.remove(), 500); // remove from DOM
-    }, 3000); // 3 seconds delay
-  });
-</script>
   </body>
 </html>
