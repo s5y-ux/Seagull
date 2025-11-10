@@ -1,0 +1,284 @@
+/* === Canvas Background === */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* === Main Layout === */
+main {
+    position: absolute;
+    color: lime;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+section {
+    grid-column: 2/8;
+    padding: 1rem;
+}
+
+header {
+    grid-column: 2/span 5;
+    padding: 2rem;
+}
+
+/* === Headings and Text === */
+h1, h2, h3 {
+    color: #ffffff;
+    background-color: rgba(0,0,0,0.65);
+    font-family: "Roboto Mono", monospace;
+    margin: 0.5rem 0;
+}
+
+p {
+    color: #ffffff;
+    font-family: "Roboto Mono", monospace;
+}
+
+/* === Splash Screen === */
+#splash-screen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 9999;
+    transition: opacity 0.6s ease-in-out;
+}
+
+#splash-screen h1 {
+    font-size: 3em;
+    text-align: center;
+    margin-top: 20%;
+}
+
+#splash-screen p {
+    font-size: 1.2em;
+    text-align: center;
+    margin-top: 0;
+}
+
+.typewriter p {
+    overflow: hidden;
+    border-right: 0.15em solid white;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0.15em;
+    animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+#splash-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Typing Animations */
+@keyframes typing { from { width: 0 } to { width: 50% } }
+@keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: white; } }
+
+/* === Navbar === */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: rgba(0,0,0,0.65);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+    font-family: "Roboto Mono", monospace;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+.navbar-logo { font-size: 1.25rem; font-weight: bold; }
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-links li {
+    position: relative;
+}
+
+.navbar-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-links li a:hover { color: #5d5d5e; }
+
+/* Submenu */
+.navbar-links .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    background: rgba(0,0,0,0.85);
+    padding: 0.5rem 0;
+    margin: 0;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    z-index: 1001;
+}
+
+.navbar-links .has-submenu:hover .submenu { display: block; }
+
+.navbar-links .submenu li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: white;
+}
+
+.navbar-links .submenu li a:hover {
+    background-color: #00ffff;
+    color: black;
+}
+
+/* === Footer === */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-family: "Roboto Mono", monospace;
+}
+
+/* === Fullscreen Background Video === */
+.fullscreen-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.fullscreen-video iframe,
+#player {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120vw;
+    height: 120vh;
+    transform: translate(-50%, -50%);
+    border: none;
+    pointer-events: none;
+}
+
+/* === Audio Overlay === */
+#audio-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: opacity 0.4s ease;
+}
+
+#audio-overlay.hidden { opacity: 0; pointer-events: none; }
+
+.overlay-content {
+    background: rgba(0,0,0,0.35);
+    padding: 20px 40px;
+    border-radius: 8px;
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+}
+
+/* === Contact Page === */
+.contact-page {
+    background-color: #000;
+    color: #fff;
+    font-family: "Roboto Mono", monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.contact-container {
+    margin-top: 140px; /* Adjust below navbar */
+    display: flex;
+    justify-content: center;
+    padding-bottom: 100px;
+    width: 100%;
+}
+
+.contact-card {
+    max-width: 900px;
+    width: 90%;
+    background: rgba(0,0,0,0.65);
+    padding: 2.5rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    color: white;
+}
+
+.contact-card h1, .contact-card h2 { background: none; margin-top: 1rem; }
+.contact-card p { margin-bottom: 1.5rem; }
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.contact-form label {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 0.8rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+}
+
+.contact-button {
+    margin-top: 1.5rem;
+    padding: 0.9rem;
+    background: #00ffff;
+    color: black;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.contact-button:hover { background: #00bebe; }
