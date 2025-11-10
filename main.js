@@ -157,10 +157,19 @@ function animate() {
 animate();
 
 const splashScreen = document.getElementById("splash-screen");
+console.log("Splash screen element:", splashScreen); // Debug line
 
-splashScreen.addEventListener("click", function () {
+splashScreen.addEventListener("click", function (e) {
+  console.log("Splash screen clicked!"); // Debug line
   splashScreen.style.opacity = "0";
+  splashScreen.style.pointerEvents = "none"; // Add this line
   setTimeout(function () {
     splashScreen.style.display = "none";
   }, 600);
+});
+
+// Add this line to ensure the splash screen is visible initially
+document.addEventListener("DOMContentLoaded", function() {
+    splashScreen.style.opacity = "1";
+    splashScreen.style.pointerEvents = "auto";
 });
