@@ -4,8 +4,11 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Learn about Seagull Technologies, a software company based in Ventura, CA." />
+    <meta name="theme-color" content="#000000" />
     <title>About Seagull Technologies LLC</title>
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
     /* === Canvas Background === */
     canvas {
         position: fixed;
@@ -88,6 +91,16 @@
     /* Typing Animations */
     @keyframes typing { from { width: 0 } to { width: 50% } }
     @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: white; } }
+
+    /* === Mobile === */
+    @media (max-width: 768px) {
+      #splash-screen h1 { font-size: 2em; margin-top: 30%; }
+      #splash-screen p  { font-size: 1em; }
+
+      @keyframes typing { from { width: 0 } to { width: 100% } }
+
+      .overlay-content { font-size: 1.2rem; padding: 15px 25px; }
+    }
 
     /* === Navbar === */
     .navbar {
@@ -299,6 +312,22 @@
         </div>
     </div>
 
+    <nav class="navbar">
+        <div class="navbar-logo">Seagull Technologies<br/> Ventura CA.</div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">&#9776;</button>
+        <ul class="navbar-links" id="navbar-links">
+            <li><a href="/index.html">Home</a></li>
+            <li class="has-submenu">
+                <a href="#">Products</a>
+                <ul class="submenu">
+                    <li><a href="https://www.politiciantradetracker.us/">Politician Trade Tracker API</a></li>
+                </ul>
+            </li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
     <!-- Fullscreen Background Video -->
         <div class="fullscreen-video" id="video-wrapper">
             <div id="player"></div>
@@ -367,6 +396,56 @@ document.getElementById("audio-overlay").addEventListener("click", () => {
     document.getElementById("audio-overlay").classList.add("hidden");
 });
 
+</script>
+
+<script>
+// Hamburger toggle
+const hamburger = document.getElementById('hamburger');
+const navbarLinks = document.getElementById('navbar-links');
+
+if (hamburger && navbarLinks) {
+    hamburger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        navbarLinks.classList.toggle('open');
+        hamburger.textContent = navbarLinks.classList.contains('open') ? '\u2715' : '\u2630';
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('.navbar')) {
+            navbarLinks.classList.remove('open');
+            hamburger.textContent = '\u2630';
+        }
+    });
+}
+
+document.querySelectorAll('.has-submenu > a').forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const submenu = this.nextElementSibling;
+        const isMobile = window.innerWidth <= 768;
+
+        if (isMobile) {
+            document.querySelectorAll('.submenu').forEach(sm => {
+                if (sm !== submenu) sm.classList.remove('open');
+            });
+            submenu.classList.toggle('open');
+        } else {
+            document.querySelectorAll('.submenu').forEach(sm => {
+                if (sm !== submenu) sm.style.display = 'none';
+            });
+            submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+        }
+    });
+});
+
+window.addEventListener('click', function (e) {
+    if (!e.target.closest('.has-submenu')) {
+        document.querySelectorAll('.submenu').forEach(sm => {
+            sm.style.display = 'none';
+            sm.classList.remove('open');
+        });
+    }
+});
 </script>
 
 </body>

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
 /* === Canvas Background === */
 canvas {
     position: fixed;
@@ -121,7 +123,8 @@ p {
     transition: color 0.3s ease;
 }
 
-.navbar-links li a:hover { color: #5d5d5e; }
+.navbar-links li a:hover,
+.navbar-links li a:focus-visible { color: #5d5d5e; outline: 2px solid #00ffff; outline-offset: 3px; }
 
 /* Submenu */
 .navbar-links .submenu {
@@ -151,6 +154,19 @@ p {
     color: black;
 }
 
+/* === Hamburger Button (hidden on desktop) === */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 0.4rem 0.6rem;
+    line-height: 1;
+    z-index: 1002;
+}
+
 /* === Footer === */
 .footer {
     position: fixed;
@@ -161,6 +177,74 @@ p {
     text-align: center;
     padding: 1rem;
     font-family: "Roboto Mono", monospace;
+}
+
+/* =============================================
+   MOBILE STYLES  (phones / narrow screens)
+   ============================================= */
+@media (max-width: 768px) {
+
+    /* Show hamburger, hide regular nav links by default */
+    .hamburger { display: block; }
+
+    .navbar-links {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.97);
+        backdrop-filter: blur(10px);
+        padding: 0.5rem 0 1rem;
+        gap: 0;
+        z-index: 998;
+        border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .navbar-links.open { display: flex; }
+
+    .navbar-links li { width: 100%; position: static; }
+
+    .navbar-links li a {
+        display: block;
+        padding: 0.85rem 2rem;
+        font-size: 1.05rem;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Submenu goes inline (static) on mobile */
+    .navbar-links .submenu {
+        display: none;
+        position: static;
+        background: rgba(255,255,255,0.05);
+        box-shadow: none;
+        border-radius: 0;
+        min-width: unset;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Disable hover-open on mobile; JS toggles .open class */
+    .navbar-links .has-submenu:hover .submenu { display: none; }
+    .navbar-links .submenu.open { display: block !important; }
+
+    .navbar-links .submenu li a {
+        padding: 0.7rem 3rem;
+        font-size: 0.95rem;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .navbar-logo { font-size: 1rem; }
+
+    .footer { font-size: 0.75rem; padding: 0.5rem; }
+
+    /* Splash screen adjustments */
+    #splash-screen h1 { font-size: 2em; margin-top: 30%; }
+    #splash-screen p  { font-size: 1em; }
+
+    /* Typewriter: animate to full width on mobile */
+    @keyframes typing { from { width: 0 } to { width: 100% } }
 }
 
 /* === Fullscreen Background Video === */
@@ -281,4 +365,5 @@ p {
     transition: 0.3s ease;
 }
 
-.contact-button:hover { background: #00bebe; }
+.contact-button:hover,
+.contact-button:focus-visible { background: #00bebe; outline: 2px solid #00ffff; outline-offset: 3px; }

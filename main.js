@@ -10,24 +10,53 @@ window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+// Hamburger menu toggle (mobile only)
+const hamburger = document.getElementById('hamburger');
+const navbarLinks = document.getElementById('navbar-links');
+
+if (hamburger && navbarLinks) {
+  hamburger.addEventListener('click', function (e) {
+    e.stopPropagation();
+    navbarLinks.classList.toggle('open');
+    hamburger.textContent = navbarLinks.classList.contains('open') ? '\u2715' : '\u2630';
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.navbar')) {
+      navbarLinks.classList.remove('open');
+      hamburger.textContent = '\u2630';
+    }
+  });
+}
+
+// Submenu toggle — desktop: CSS hover; mobile: click toggles .open class
 document.querySelectorAll('.has-submenu > a').forEach(link => {
   link.addEventListener('click', function (e) {
     e.preventDefault();
     const submenu = this.nextElementSibling;
-    const allSubmenus = document.querySelectorAll('.submenu');
+    const isMobile = window.innerWidth <= 768;
 
-    allSubmenus.forEach(sm => {
-      if (sm !== submenu) sm.style.display = 'none';
-    });
-
-    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    if (isMobile) {
+      document.querySelectorAll('.submenu').forEach(sm => {
+        if (sm !== submenu) sm.classList.remove('open');
+      });
+      submenu.classList.toggle('open');
+    } else {
+      document.querySelectorAll('.submenu').forEach(sm => {
+        if (sm !== submenu) sm.style.display = 'none';
+      });
+      submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    }
   });
 });
 
-// Optional: Close submenu if user clicks outside
+// Close submenus when clicking outside
 window.addEventListener('click', function (e) {
   if (!e.target.closest('.has-submenu')) {
-    document.querySelectorAll('.submenu').forEach(sm => sm.style.display = 'none');
+    document.querySelectorAll('.submenu').forEach(sm => {
+      sm.style.display = 'none';
+      sm.classList.remove('open');
+    });
   }
 });
 
@@ -42,13 +71,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(10);
 
 const material_3 = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
-
-const Sphere = new THREE.SphereGeometry(15, 32, 16);
-const S_Object = new THREE.Mesh(Sphere, material_3);
-
-//------------------------Positions--------------------
-S_Object.position.set(0, 0, 0);
-//------------------------End of Positions--------------------
 
 
 // ✅ Fixed GLTFLoader usage
@@ -76,9 +98,6 @@ loader.load('/seagull.gltf', function (gltf) {
 
 
 const ambientLight = new THREE.AmbientLight(0xffffff);
-const gridHelper = new THREE.GridHelper(200, 50);
-
-// scene.add(gridHelper);
 scene.add(ambientLight);
 
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -105,21 +124,8 @@ function addShapes() {
 }
 
 
-Array(250).fill().forEach(addShapes);
-
-
-// const spaceTexture = new THREE.TextureLoader().load('space.png');
-// scene.background = spaceTexture;
-
-var globalaccessor = 0;
-
-/*function moveCamera() {
-  const t = (document.body.getBoundingClientRect().top - 20);
-  camera.position.x = t * -0.0075;
-  camera.position.y = t * -0.075;
-}
-
-document.body.onscroll = moveCamera;*/
+const particleCount = window.innerWidth <= 768 ? 100 : 250;
+Array(particleCount).fill().forEach(addShapes);
 
 let clock = new THREE.Clock();
 
