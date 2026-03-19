@@ -164,10 +164,16 @@ animate();
 
 const splashScreen = document.getElementById("splash-screen");
 
-splashScreen.addEventListener("click", function () {
-  splashScreen.style.opacity = "0";
-  console.log("Splash screen clicked");
-  setTimeout(function () {
-    splashScreen.style.display = "none";
-  }, 600);
-});
+if (sessionStorage.getItem('splashShown')) {
+  splashScreen.style.display = "none";
+} else {
+  sessionStorage.setItem('splashShown', '1');
+
+  const dismissSplash = () => {
+    splashScreen.style.opacity = "0";
+    setTimeout(() => { splashScreen.style.display = "none"; }, 600);
+  };
+
+  setTimeout(dismissSplash, 3500);
+  splashScreen.addEventListener("click", dismissSplash);
+}
