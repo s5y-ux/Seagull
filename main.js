@@ -69,6 +69,9 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(10);
+camera.position.setY(5);
+camera.position.setX(10);
+
 
 const material_3 = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
 
